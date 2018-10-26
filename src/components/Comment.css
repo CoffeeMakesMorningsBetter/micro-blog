@@ -1,0 +1,8 @@
+.comment-container {
+  display: flex;
+  justify-content: space-around;
+  height: 40px;
+  width: 100%;
+  border: goldenrod 1px solid;
+  overflow: scroll;
+}

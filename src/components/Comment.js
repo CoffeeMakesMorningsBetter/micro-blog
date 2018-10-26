@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Comment.css';
 
 class Comment extends Component {
   delete = () => {
@@ -6,8 +7,8 @@ class Comment extends Component {
   }
   render() {
     return (
-      <div>
-        <h1>{this.props.comment}</h1>
+      <div className="comment-container">
+        <p>{this.props.comment}</p>
         <button onClick={this.delete}>x</button>
       </div>
     )

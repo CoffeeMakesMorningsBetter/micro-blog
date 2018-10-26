@@ -41,7 +41,7 @@ class PostInformation extends Component {
           </div>
           <div className="post-container-content">
             <p>{this.props.post}</p>
-            <div>
+            <div className="post-container-content-comments">
               {comments}
             </div>
           </div>
