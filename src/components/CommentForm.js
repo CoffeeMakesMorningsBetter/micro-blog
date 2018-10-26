@@ -28,6 +28,7 @@ class CommentForm extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <label>
+            Add A Comment
             <input
               type="text"
               name="comment"

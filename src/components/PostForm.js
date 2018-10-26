@@ -38,6 +38,7 @@ class PostForm extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="title">
+            Title
             <input
               id="title"
               type="text"
@@ -47,6 +48,7 @@ class PostForm extends Component {
             />
           </label>
           <label htmlFor="post">
+            Blog
             <input
               id="post"
               type="text"

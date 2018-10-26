@@ -15,6 +15,7 @@ class MicroBlog extends Component {
       posts: []
     }
   }
+
   createNewPost = (post) => {
     this.setState({
       posts: [...this.state.posts, post]
@@ -45,12 +46,18 @@ class MicroBlog extends Component {
     this.setState({ ...this.state, posts: [...post] })
   }
 
+  deleteComment = (commentId, postId) => {
+    let post = findPost(this.state.posts, postId)
+    let postComments = post[post.length - 1].comments.filter(comment => comment.id !== commentId)
+    post[post.length - 1].comments = postComments
+    this.setState({ ...this.state, posts: [...post] })
+  }
+
   renderPost = (post) => {
     return (<Post
       key={post.id}
       id={post.id}
       post={post.post}
-      comments={post.comments}
       like={post.like}
       dislike={post.dislike}
       title={post.title}
@@ -64,7 +71,6 @@ class MicroBlog extends Component {
     const { id } = props.match.params
     let post = findPost(this.state.posts, id)
     let data = post[post.length - 1]
-    console.log(data)
     return (<PostInformation
       key={data.id}
       id={data.id}
@@ -77,6 +83,7 @@ class MicroBlog extends Component {
       disLikeIt={this.disLikePost}
       delete={this.deletePost}
       createNewComment={this.createNewComment}
+      deleteComment={this.deleteComment}
     />)
   }
 

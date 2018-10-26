@@ -16,8 +16,20 @@ class PostInformation extends Component {
     this.props.history.push("/")
   }
 
+  createComments = (comment) => {
+    return (
+      <Comment
+        key={comment.id}
+        id={comment.id}
+        deleteComment={this.props.deleteComment}
+        postId={this.props.id}
+        comment={comment.comment}
+      />
+    )
+  }
+
   render() {
-    let comments = this.props.comments.map(comment => <Comment comment={comment.comment}/>)
+    let comments = this.props.comments.map(this.createComments)
     return (
       <div>
         <h1>{this.props.title}</h1>
