@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import MicroBlogList from './MicroBlogList'
 import PostForm from './PostForm';
 import Post from './Post';
 import PostInformation from './PostInformation';
 import CommentForm from './CommentForm';
 import { findPost } from '../helper';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 
 
 class MicroBlog extends Component {
@@ -39,10 +40,7 @@ class MicroBlog extends Component {
   }
 
   createNewComment = (comment, id) => {
-    console.log("comment: ", comment)
-    console.log("id ", id)
     let post = findPost(this.state.posts, id)
-    debugger;
     post[post.length - 1].comments.push(comment)
     this.setState({ ...this.state, posts: [...post] })
   }
@@ -65,7 +63,7 @@ class MicroBlog extends Component {
   renderPostInformation = (props) => {
     const { id } = props.match.params
     let post = findPost(this.state.posts, id)
-    let data = post[post.length-1]
+    let data = post[post.length - 1]
     console.log(data)
     return (<PostInformation
       key={data.id}
@@ -79,7 +77,7 @@ class MicroBlog extends Component {
       disLikeIt={this.disLikePost}
       delete={this.deletePost}
       createNewComment={this.createNewComment}
-      />)
+    />)
   }
 
   renderCommentForm = (props) => {
@@ -89,23 +87,21 @@ class MicroBlog extends Component {
 
 
   render() {
-    let blog = this.state.posts.map(this.renderPost)
     return (
       <React.Fragment>
         <div>
-          <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/newpost">New Post</Link></li>
-          </ul>
+          <nav className="nav">
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/newpost">New Post</Link></li>
+            </ul>
           </nav>
-          <Route exact path="/newpost" component={props => <PostForm createNewPost={this.createNewPost} {...props}/>}/>
-          <Route exact path="/show/:id" component={this.renderPostInformation}/>
-          <Route exact path="/show/:id/comment" component={this.renderCommentForm}/>
-        </div>
-        <div>
-          <h1>All Blogs</h1>
-          {blog}
+          <Switch>
+            <Route exact path="/" component={props => <MicroBlogList list={this.state.posts} renderPost={this.renderPost}/>} />
+            <Route exact path="/newpost" component={props => <PostForm createNewPost={this.createNewPost} {...props} />} />
+            <Route exact path="/show/:id" component={this.renderPostInformation} />
+            <Route exact path="/show/:id/comment" component={this.renderCommentForm} />
+          </Switch>
         </div>
       </React.Fragment>
 

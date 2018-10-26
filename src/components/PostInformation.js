@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import Comment from './Comment'
 
 class PostInformation extends Component {
   likePost = () => {
@@ -16,7 +17,7 @@ class PostInformation extends Component {
   }
 
   render() {
-    console.log(this.props.comments)
+    let comments = this.props.comments.map(comment => <Comment comment={comment.comment}/>)
     return (
       <div>
         <h1>{this.props.title}</h1>
@@ -29,6 +30,9 @@ class PostInformation extends Component {
         <button onClick={this.dislikePost}>Dislike</button>
         <button onClick={this.deletePost}>Delete</button>
         <p><Link to={`/show/${this.props.id}/comment`}>Add Comment</Link></p>
+        <div>
+          {comments}
+        </div>
       </div>
     )
   }
