@@ -6,6 +6,7 @@ import PostInformation from './PostInformation';
 import CommentForm from './CommentForm';
 import { findPost } from '../helper';
 import { Link, Route, Switch } from 'react-router-dom';
+import './MicroBlog.css';
 
 
 class MicroBlog extends Component {
@@ -98,10 +99,13 @@ class MicroBlog extends Component {
       <React.Fragment>
         <div>
           <nav className="nav">
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/newpost">New Post</Link></li>
-            </ul>
+            <div>
+              <Link to="/">Home</Link>
+            </div>
+            <div>
+              <Link to="/newpost">New Post</Link>
+            </div>
+            
           </nav>
           <Switch>
             <Route exact path="/" component={props => <MicroBlogList list={this.state.posts} renderPost={this.renderPost}/>} />

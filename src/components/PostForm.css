@@ -1,0 +1,33 @@
+.post-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 10px auto;
+  border: pink 1px solid;
+  padding: 10px;
+}
+
+form {
+  border: black 1px solid;
+  width: 100%;
+}
+
+.post-form input {
+  width: 98%;
+  margin-bottom: 5px;
+  padding: 10px 1px;;
+}
+
+input[type="submit"] {
+  background: pink;
+  color: orange;
+  font-size: 1rem;
+  font-weight: 800;
+  width: 99%;
+}
+
+input:focus {
+  outline: none;
+}

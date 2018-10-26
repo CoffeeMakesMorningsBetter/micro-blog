@@ -1,0 +1,14 @@
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+.nav {
+  display: flex;
+  justify-content: end;
+  border: black solid 1px;
+  padding: 10px;
+}
+
+.nav div:first-of-type {
+  margin: 0 10px;
+}

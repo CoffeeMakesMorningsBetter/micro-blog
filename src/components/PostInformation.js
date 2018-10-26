@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Comment from './Comment'
+import './Post.css'
 
 class PostInformation extends Component {
   likePost = () => {
@@ -31,19 +32,25 @@ class PostInformation extends Component {
   render() {
     let comments = this.props.comments.map(this.createComments)
     return (
-      <div>
-        <h1>{this.props.title}</h1>
-        <div>{this.props.post}</div>
-        <div>
-          <p>like: {this.props.like}</p>
-          <p>dislike: {this.props.dislike}</p>
+      <div className="container">
+        <div className="post-container">
+          <div className="post-container-title">
+            <p>Title: {this.props.title}</p>
+            <p>like: {this.props.like}</p>
+            <p>dislike: {this.props.dislike}</p>
+          </div>
+          <div className="post-container-content">
+            <p>{this.props.post}</p>
+            <div>
+              {comments}
+            </div>
+          </div>
         </div>
-        <button onClick={this.likePost}>Like</button>
-        <button onClick={this.dislikePost}>Dislike</button>
-        <button onClick={this.deletePost}>Delete</button>
-        <p><Link to={`/show/${this.props.id}/comment`}>Add Comment</Link></p>
-        <div>
-          {comments}
+        <div className="post-container-like-dislike">
+          <button onClick={this.likePost}>Like</button>
+          <button onClick={this.dislikePost}>Dislike</button>
+          <button onClick={this.deletePost}>Delete</button>
+          <p><Link to={`/show/${this.props.id}/comment`}>Add Comment</Link></p>
         </div>
       </div>
     )

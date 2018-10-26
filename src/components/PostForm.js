@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import uuid4 from 'uuid4';
+import './PostForm.css'
 
 class PostForm extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class PostForm extends Component {
   render() {
     let { post, title } = this.state
     return (
-      <div>
+      <div className="post-form">
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="title">
             Title
