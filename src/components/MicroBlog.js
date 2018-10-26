@@ -4,9 +4,11 @@ import PostForm from './PostForm';
 import Post from './Post';
 import PostInformation from './PostInformation';
 import CommentForm from './CommentForm';
-import { findPost } from '../helper';
-import { Link, Route, Switch } from 'react-router-dom';
+import { findPost } from '../helper'
+import { Link, Route, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './MicroBlog.css';
+import { createPost, likePost, disLikePost, deletePost, createComment, delteComment } from '../actionCreators/index'
 
 
 class MicroBlog extends Component {
@@ -18,40 +20,27 @@ class MicroBlog extends Component {
   }
 
   createNewPost = (post) => {
-    this.setState({
-      posts: [...this.state.posts, post]
-    })
+    this.props.createPost(post)
   }
 
   likePost = (id) => {
-    let post = findPost(this.state.posts, id)
-    post[post.length - 1].like++
-    this.setState({ ...this.state, posts: [...post] })
+    this.props.likePost(id)
   }
 
   disLikePost = (id) => {
-    let post = findPost(this.state.posts, id)
-    post[post.length - 1].dislike++
-    this.setState({ ...this.state, posts: [...post] })
+    this.props.disLikePost(id)
   }
 
   deletePost = (id) => {
-    let post = findPost(this.state.posts, id)
-    post.pop()
-    this.setState({ ...this.state, posts: [...post] })
+    this.props.deletePost(id)
   }
 
-  createNewComment = (comment, id) => {
-    let post = findPost(this.state.posts, id)
-    post[post.length - 1].comments.push(comment)
-    this.setState({ ...this.state, posts: [...post] })
+  createNewComment = (comment) => {
+    this.props.createComment(comment)
   }
 
-  deleteComment = (commentId, postId) => {
-    let post = findPost(this.state.posts, postId)
-    let postComments = post[post.length - 1].comments.filter(comment => comment.id !== commentId)
-    post[post.length - 1].comments = postComments
-    this.setState({ ...this.state, posts: [...post] })
+  deleteComment = (id) => {
+    this.props.delteComment(id)
   }
 
   renderPost = (post) => {
@@ -70,7 +59,7 @@ class MicroBlog extends Component {
 
   renderPostInformation = (props) => {
     const { id } = props.match.params
-    let post = findPost(this.state.posts, id)
+    let post = findPost(this.props.posts, id)
     let data = post[post.length - 1]
     return (<PostInformation
       key={data.id}
@@ -108,7 +97,7 @@ class MicroBlog extends Component {
             
           </nav>
           <Switch>
-            <Route exact path="/" component={props => <MicroBlogList list={this.state.posts} renderPost={this.renderPost}/>} />
+            <Route exact path="/" component={props => <MicroBlogList list={this.props.posts} renderPost={this.renderPost}/>} />
             <Route exact path="/newpost" component={props => <PostForm createNewPost={this.createNewPost} {...props} />} />
             <Route exact path="/show/:id" component={this.renderPostInformation} />
             <Route exact path="/show/:id/comment" component={this.renderCommentForm} />
@@ -120,4 +109,11 @@ class MicroBlog extends Component {
   }
 }
 
-export default MicroBlog
+const mapStateToProps = (reduxState) => {
+  // debugger
+  return {
+    posts: reduxState.posts
+  }
+}
+
+export default withRouter(connect(mapStateToProps, { createPost, likePost, disLikePost, deletePost, createComment, delteComment })(MicroBlog))

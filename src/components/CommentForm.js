@@ -18,7 +18,7 @@ class CommentForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
-    this.props.createNewComment({id: uuid4(), comment: this.state.comment}, this.props.id)
+    this.props.createNewComment({id: uuid4(), comment: this.state.comment, parentID: this.props.id})
     this.props.history.push('/')
   }
 

@@ -3,7 +3,7 @@ import './Comment.css';
 
 class Comment extends Component {
   delete = () => {
-    this.props.deleteComment(this.props.id, this.props.postId)
+    this.props.deleteComment({id: this.props.id, postID: this.props.postId})
   }
   render() {
     return (
