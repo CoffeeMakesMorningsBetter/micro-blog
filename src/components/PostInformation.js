@@ -17,6 +17,11 @@ class PostInformation extends Component {
     this.props.history.push("/")
   }
 
+  updatePost = () => {
+    this.props.updateP(this.props.id)
+    this.props.history.push(`/show/${this.props.id}/newPost`)
+  }
+
   createComments = (comment) => {
     return (
       <Comment
@@ -50,6 +55,7 @@ class PostInformation extends Component {
           <button onClick={this.likePost}>Like</button>
           <button onClick={this.dislikePost}>Dislike</button>
           <button onClick={this.deletePost}>Delete</button>
+          <button onClick={this.updatePost}>Update Post</button>
           <p><Link to={`/show/${this.props.id}/comment`}>Add Comment</Link></p>
         </div>
       </div>

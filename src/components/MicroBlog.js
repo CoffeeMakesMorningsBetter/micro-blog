@@ -13,7 +13,8 @@ class MicroBlog extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      posts: []
+      posts: [],
+      editTodo: false
     }
   }
 
@@ -39,6 +40,11 @@ class MicroBlog extends Component {
     let post = findPost(this.state.posts, id)
     post.pop()
     this.setState({ ...this.state, posts: [...post] })
+  }
+
+  updatePost = (id) => {
+    let post = findPost(this.state.posts, id)[0]
+    return post
   }
 
   createNewComment = (comment, id) => {
@@ -85,6 +91,7 @@ class MicroBlog extends Component {
       delete={this.deletePost}
       createNewComment={this.createNewComment}
       deleteComment={this.deleteComment}
+      updateP={this.updatePost}
     />)
   }
 
@@ -109,9 +116,10 @@ class MicroBlog extends Component {
           </nav>
           <Switch>
             <Route exact path="/" component={props => <MicroBlogList list={this.state.posts} renderPost={this.renderPost}/>} />
-            <Route exact path="/newpost" component={props => <PostForm createNewPost={this.createNewPost} {...props} />} />
+            <Route exact path="/newpost" component={props => <PostForm createNewPost={this.createNewPost} edit={this.state.editTodo} {...props} />} />
             <Route exact path="/show/:id" component={this.renderPostInformation} />
             <Route exact path="/show/:id/comment" component={this.renderCommentForm} />
+            <Route exact path="/show/:id/newpost" component={props => <PostForm createNewPost={this.createNewPost} {...props} />} />
           </Switch>
         </div>
       </React.Fragment>
